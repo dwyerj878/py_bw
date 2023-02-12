@@ -16,13 +16,14 @@ def on_exit():
     print("Done!")
 
 def start():
+    curses.init_pair(91, curses.COLOR_BLACK, curses.COLOR_WHITE);
     try:
         start=last=get_stats()
         time.sleep(1)
         data_txt = "{0:10} {1:>9} {2:>9} {3:>9} {4:>9}"
         while True:
             win.clear()
-            win.addstr(0,0, data_txt.format("ifc", "sec_sent", "sec_recv", "tot_sent", "tot_recv")) 
+            win.addstr(0,0, data_txt.format("ifc", "sec_sent", "sec_recv", "tot_sent", "tot_recv"), curses.color_pair(91))
             stats = get_stats()
             row = 1
             for ifc in stats:
@@ -42,6 +43,7 @@ def start():
 # print(stats)
 atexit.register(on_exit)
 win = curses.initscr()
+curses.start_color()
 curses.savetty()
 start()
 
